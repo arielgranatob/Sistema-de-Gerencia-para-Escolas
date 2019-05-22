@@ -43,7 +43,7 @@ public class JFrameMatricula extends javax.swing.JFrame {
             DefaultTableModel dtm = new DefaultTableModel(new String[]{"ID Matricula", "ID Aluno", "ID Curso"}, 0);
 
             while (rs.next()) {
-                String dados[] = {rs.getString("idCurso"), rs.getString("idAluno"), rs.getString("idCurso")};
+                String dados[] = {rs.getString("idMatricula"), rs.getString("idAluno"), rs.getString("idCurso")};
                 dtm.addRow(dados);
             }
             tabelaMatricula.setModel(dtm);
