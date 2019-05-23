@@ -46,33 +46,27 @@ public class JFrameCurso extends javax.swing.JFrame {
     }
 
     void deleteCurso() {
-        try {
-            if (tabelaCurso.getSelectedRowCount() == 0) {
-                JOptionPane.showMessageDialog(null, "Selecione uma linha", "Erro", JOptionPane.ERROR_MESSAGE);
-            } else {
-                ps = Conexao.conexao().prepareStatement("DELETE FROM curso WHERE idCurso=?");
-                ps.setString(1, tabelaCurso.getModel().getValueAt(tabelaCurso.getSelectedRow(), 0).toString());
-                ps.executeUpdate();
-                carregarDados();
-            }
-        } catch (SQLException e) {
-            System.out.println("Erro no DELETE " + e);
+        if (tabelaCurso.getSelectedRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Curso curso = new Curso();
+            curso.setIdCurso(tabelaCurso.getModel().getValueAt(tabelaCurso.getSelectedRow(), 0).toString());
+            CursoDAO cursoDAO = new CursoDAO();
+            cursoDAO.exclui(curso);
+            carregarDados();
         }
     }
 
     void updateCurso() {
-        try {
-            if (tabelaCurso.getSelectedRowCount() == 0) {
-                JOptionPane.showMessageDialog(null, "Selecione uma linha", "Erro", JOptionPane.ERROR_MESSAGE);
-            } else {
-                ps = Conexao.conexao().prepareStatement("UPDATE curso SET nomeCurso=? WHERE idCurso=?");
-                ps.setString(1, JOptionPane.showInputDialog("Novo nome do curso"));
-                ps.setString(2, tabelaCurso.getModel().getValueAt(tabelaCurso.getSelectedRow(), 0).toString());
-                ps.executeUpdate();
-                carregarDados();
-            }
-        } catch (SQLException e) {
-            System.out.println("Erro no UPDATE " + e);
+        if (tabelaCurso.getSelectedRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Curso curso = new Curso();
+            curso.setIdCurso(tabelaCurso.getModel().getValueAt(tabelaCurso.getSelectedRow(), 0).toString());
+            curso.setNomeCurso(JOptionPane.showInputDialog("Novo nome do curso"));
+            CursoDAO cursoDAO = new CursoDAO();
+            cursoDAO.altera(curso);
+            carregarDados();
         }
     }
 

@@ -19,21 +19,67 @@ public class MatriculaDAO implements InterfaceDAO {
 
     @Override
     public void adiciona(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Matricula matricula = (Matricula) obj;
+            sql = "INSERT INTO matricula (idAluno, idCurso) VALUES (?,?)";
+            conn = Conexao.conexao();
+            PreparedStatement stmt;
+            stmt = conn.prepareStatement(sql);
+            //        stmt.setInt(1, Aluno.matricula.getIdAluno());
+            //        stmt.setInt(2, matricula.getIdCurso());
+            stmt.execute();
+            //Conexao.closeConn();
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void exclui(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Matricula matricula = (Matricula) obj;
+            sql = "DELETE FROM matricula WHERE idMatricula=?";
+            conn = Conexao.conexao();
+            PreparedStatement stmt;
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, matricula.getIdMatricula());
+            stmt.execute();
+            // Conexao.closeConn();
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void altera(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Matricula matricula = (Matricula) obj;
+            sql = "UPDATE matricula SET idAluno=?, idCurso=? WHERE idMatricula=?";
+            conn = Conexao.conexao();
+            PreparedStatement stmt;
+            stmt = conn.prepareStatement(sql);
+            //stmt.setInt(1, Aluno.matricula.getIdAluno());
+            //stmt.setInt(1, Curso.matricula.getIdCurso());
+            stmt.setInt(3, matricula.getIdMatricula());
+            stmt.execute();
+            //Conexao.closeConn();
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public ArrayList<Object> consulta(Object obj) {
+        try {
+            sql = "SELECT * FROM matricula";
+            conn = Conexao.conexao();
+            PreparedStatement stmt;
+            stmt = conn.prepareStatement(sql);
+            stmt.execute();
+            Conexao.closeConn();
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return null;
     }
 }

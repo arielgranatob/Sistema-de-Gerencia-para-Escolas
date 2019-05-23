@@ -4,10 +4,26 @@ public class Aluno {
 
     private String nomeAluno;
     private String cpfAluno;
+    private String idAluno;
+
+    /**
+     * @return the idAluno
+     */
+    public String getIdAluno() {
+        return idAluno;
+    }
+
+    /**
+     * @param idAluno the idAluno to set
+     */
+    public void setIdAluno(String idAluno) {
+        this.idAluno = idAluno;
+    }
 
     public Aluno() {
         this.cpfAluno = cpfAluno;
         this.nomeAluno = nomeAluno;
+        this.idAluno = idAluno;
     }
 
     /**

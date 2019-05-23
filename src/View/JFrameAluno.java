@@ -26,7 +26,7 @@ public class JFrameAluno extends javax.swing.JFrame {
         aluno.setCpfAluno(jtxtcpfAluno.getText());
         AlunoDAO alunoDAO = new AlunoDAO();
         alunoDAO.adiciona(aluno);
-        //carregarDados();
+        carregarDados();
     }
 
     void carregarDados() {
@@ -48,33 +48,27 @@ public class JFrameAluno extends javax.swing.JFrame {
     }
 
     void deleteAluno() {
-        try {
-            if (tabelaAluno.getSelectedRowCount() == 0) {
-                JOptionPane.showMessageDialog(null, "Selecione uma linha", "Erro", JOptionPane.ERROR_MESSAGE);
-            } else {
-                ps = Conexao.conexao().prepareStatement("DELETE FROM aluno WHERE idAluno=?");
-                ps.setString(1, tabelaAluno.getModel().getValueAt(tabelaAluno.getSelectedRow(), 0).toString());
-                ps.executeUpdate();
-                carregarDados();
-            }
-        } catch (SQLException e) {
-            System.out.println("Erro no DELETE " + e);
+        if (tabelaAluno.getSelectedRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Aluno aluno = new Aluno();
+            aluno.setNomeAluno(tabelaAluno.getModel().getValueAt(tabelaAluno.getSelectedRow(), 0).toString());
+            AlunoDAO alunoDAO = new AlunoDAO();
+            alunoDAO.exclui(aluno);
+            carregarDados();
         }
     }
 
     void updateAluno() {
-        try {
-            if (tabelaAluno.getSelectedRowCount() == 0) {
-                JOptionPane.showMessageDialog(null, "Selecione uma linha", "Erro", JOptionPane.ERROR_MESSAGE);
-            } else {
-                ps = Conexao.conexao().prepareStatement("UPDATE aluno SET nomeAluno=? WHERE idAluno=?");
-                ps.setString(1, JOptionPane.showInputDialog("Novo nome"));
-                ps.setString(2, tabelaAluno.getModel().getValueAt(tabelaAluno.getSelectedRow(), 0).toString());
-                ps.executeUpdate();
-                carregarDados();
-            }
-        } catch (SQLException e) {
-            System.out.println("Erro no UPDATE " + e);
+        if (tabelaAluno.getSelectedRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Aluno aluno = new Aluno();
+            aluno.setNomeAluno(JOptionPane.showInputDialog("Novo nome"));
+            aluno.setIdAluno(tabelaAluno.getModel().getValueAt(tabelaAluno.getSelectedRow(), 0).toString());
+            AlunoDAO alunoDAO = new AlunoDAO();
+            alunoDAO.altera(aluno);
+            carregarDados();
         }
     }
 

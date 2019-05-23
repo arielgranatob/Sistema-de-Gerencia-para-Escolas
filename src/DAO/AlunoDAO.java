@@ -28,7 +28,7 @@ public class AlunoDAO implements InterfaceDAO {
             stmt.setString(1, aluno.getNomeAluno());
             stmt.setString(2, aluno.getCpfAluno());
             stmt.execute();
-            Conexao.closeConn();
+            //Conexao.closeConn();
         } catch (SQLException ex) {
             Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -36,23 +36,46 @@ public class AlunoDAO implements InterfaceDAO {
 
     @Override
     public void exclui(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Aluno aluno = (Aluno) obj;
+            sql = "DELETE FROM aluno WHERE idAluno=?";
+            conn = Conexao.conexao();
+            PreparedStatement stmt;
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, aluno.getNomeAluno());
+            stmt.execute();
+            // Conexao.closeConn();
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void altera(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Aluno aluno = (Aluno) obj;
+            sql = "UPDATE aluno SET nomeAluno=? WHERE idAluno=?";
+            conn = Conexao.conexao();
+            PreparedStatement stmt;
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, aluno.getNomeAluno());
+            stmt.setString(2, aluno.getIdAluno());
+            stmt.execute();
+            //Conexao.closeConn();
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public ArrayList<Object> consulta(Object obj) {
-         try {
+        try {
             sql = "SELECT * FROM aluno";
             conn = Conexao.conexao();
             PreparedStatement stmt;
             stmt = conn.prepareStatement(sql);
-            stmt.execute();
-            Conexao.closeConn();
+            stmt.execute(sql);
+            //Conexao.closeConn();
         } catch (SQLException ex) {
             Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
         }

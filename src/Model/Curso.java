@@ -1,12 +1,30 @@
 package Model;
 
 public class Curso {
+
     private String nomeCurso;
-    
-    public Curso(){
+    private String idCurso;
+
+    public Curso() {
         this.nomeCurso = nomeCurso;
+        this.idCurso = idCurso;
+
     }
-    
+
+    /**
+     * @return the idCurso
+     */
+    public String getIdCurso() {
+        return idCurso;
+    }
+
+    /**
+     * @param idCurso the idCurso to set
+     */
+    public void setIdCurso(String idCurso) {
+        this.idCurso = idCurso;
+    }
+
     /**
      * @return the nomeCurso
      */

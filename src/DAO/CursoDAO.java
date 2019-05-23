@@ -27,7 +27,7 @@ public class CursoDAO implements InterfaceDAO {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, curso.getNomeCurso());
             stmt.execute();
-            Conexao.closeConn();
+            //Conexao.closeConn();
         } catch (SQLException ex) {
             Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -35,17 +35,40 @@ public class CursoDAO implements InterfaceDAO {
 
     @Override
     public void exclui(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Curso curso = (Curso) obj;
+            sql = "DELETE FROM curso WHERE idCurso=?";
+            conn = Conexao.conexao();
+            PreparedStatement stmt;
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, curso.getIdCurso());
+            stmt.execute();
+            // Conexao.closeConn();
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void altera(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Curso curso = (Curso) obj;
+            sql = "UPDATE curso SET nomeCurso=? WHERE idCurso=?";
+            conn = Conexao.conexao();
+            PreparedStatement stmt;
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, curso.getNomeCurso());
+            stmt.setString(2, curso.getIdCurso());
+            stmt.execute();
+            //Conexao.closeConn();
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public ArrayList<Object> consulta(Object obj) {
-         try {
+        try {
             sql = "SELECT * FROM curso";
             conn = Conexao.conexao();
             PreparedStatement stmt;
