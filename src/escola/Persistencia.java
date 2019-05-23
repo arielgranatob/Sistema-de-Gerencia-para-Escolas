@@ -10,7 +10,7 @@ public class Persistencia {
     private Persistencia (){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/escola", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/escola", "root", "sereia123");
         } catch (ClassNotFoundException e){
             System.out.println("Não foi possível encontrar o Driver especificado " + e);
         } catch (SQLException ex){
