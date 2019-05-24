@@ -4,6 +4,7 @@ import Model.Aluno;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,9 +43,9 @@ public class AlunoDAO implements InterfaceDAO {
             conn = Conexao.conexao();
             PreparedStatement stmt;
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, aluno.getNomeAluno());
+            stmt.setString(1, aluno.getIdAluno());
             stmt.execute();
-            // Conexao.closeConn();
+            //Conexao.closeConn();
         } catch (SQLException ex) {
             Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -74,8 +75,15 @@ public class AlunoDAO implements InterfaceDAO {
             conn = Conexao.conexao();
             PreparedStatement stmt;
             stmt = conn.prepareStatement(sql);
-            stmt.execute(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            ArrayList<Object> dados = new ArrayList<>();
+            while (rs.next()) {
+                Aluno aluno = new Aluno(rs.getString("idAluno"), rs.getString("nomeAluno"), rs.getString("cpfAluno"));
+                dados.add(aluno);
+            }
             //Conexao.closeConn();
+            return dados;
+
         } catch (SQLException ex) {
             Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
         }

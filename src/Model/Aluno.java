@@ -21,11 +21,16 @@ public class Aluno {
     }
 
     public Aluno() {
+        this.cpfAluno = "";
+        this.nomeAluno = "";
+        this.idAluno = "";
+    }
+    
+    public Aluno(String cpfAluno, String nomeAluno, String idAluno) {
         this.cpfAluno = cpfAluno;
         this.nomeAluno = nomeAluno;
         this.idAluno = idAluno;
     }
-
     /**
      * @return the nomeAluno
      */

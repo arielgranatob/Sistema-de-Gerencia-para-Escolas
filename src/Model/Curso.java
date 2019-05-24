@@ -5,10 +5,9 @@ public class Curso {
     private String nomeCurso;
     private String idCurso;
 
-    public Curso() {
+    public Curso(String nomeCurso, String idCurso) {
         this.nomeCurso = nomeCurso;
         this.idCurso = idCurso;
-
     }
 
     /**

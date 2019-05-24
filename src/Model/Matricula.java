@@ -3,13 +3,13 @@ package Model;
 public class Matricula {
 
     private int idMatricula;
-    private Aluno idAluno;
-    private Curso idCurso;
+    private Aluno aluno;
+    private Curso curso;
 
     public Matricula() {
         this.idMatricula = -1;
-        this.idAluno = null;
-        this.idCurso = null;
+        this.aluno = null;
+        this.curso = null;
     }
 
     /**
@@ -27,30 +27,30 @@ public class Matricula {
     }
 
     /**
-     * @return the idAluno
+     * @return the aluno
      */
-    public Aluno getIdAluno() {
-        return idAluno;
+    public Aluno getAluno() {
+        return aluno;
     }
 
     /**
-     * @param idAluno the idAluno to set
+     * @param aluno the aluno to set
      */
-    public void setIdAluno(Aluno idAluno) {
-        this.idAluno = idAluno;
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
     }
 
     /**
-     * @return the idCurso
+     * @return the curso
      */
-    public Curso getIdCurso() {
-        return idCurso;
+    public Curso getCurso() {
+        return curso;
     }
 
     /**
-     * @param idCurso the idCurso to set
+     * @param curso the curso to set
      */
-    public void setIdCurso(Curso idCurso) {
-        this.idCurso = idCurso;
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 }

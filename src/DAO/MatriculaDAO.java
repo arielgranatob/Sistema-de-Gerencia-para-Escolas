@@ -58,8 +58,8 @@ public class MatriculaDAO implements InterfaceDAO {
             conn = Conexao.conexao();
             PreparedStatement stmt;
             stmt = conn.prepareStatement(sql);
-            //stmt.setInt(1, Aluno.matricula.getIdAluno());
-            //stmt.setInt(1, Curso.matricula.getIdCurso());
+            stmt.setString(1, matricula.getAluno().getIdAluno());
+            stmt.setString(2, matricula.getCurso().getIdCurso());
             stmt.setInt(3, matricula.getIdMatricula());
             stmt.execute();
             //Conexao.closeConn();

@@ -4,6 +4,7 @@ import Model.Curso;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -73,8 +74,15 @@ public class CursoDAO implements InterfaceDAO {
             conn = Conexao.conexao();
             PreparedStatement stmt;
             stmt = conn.prepareStatement(sql);
-            stmt.execute();
-            Conexao.closeConn();
+            ResultSet rs = stmt.executeQuery(sql);
+            ArrayList<Object> dados = new ArrayList<>();
+            while (rs.next()) {
+                Curso curso = new Curso(rs.getString("idCurso"), rs.getString("nomeCurso"));
+                dados.add(curso);
+            }
+            //Conexao.closeConn();
+            return dados;
+
         } catch (SQLException ex) {
             Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -6,6 +6,7 @@ import Model.Aluno;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,21 +31,18 @@ public class JFrameAluno extends javax.swing.JFrame {
     }
 
     void carregarDados() {
-
-        try {
-            ps = Conexao.conexao().prepareStatement("SELECT * FROM aluno");
-            rs = ps.executeQuery();
-
-            DefaultTableModel dtm = new DefaultTableModel(new String[]{"ID", "Nome", "CPF"}, 0);
-
-            while (rs.next()) {
-                String dados[] = {rs.getString("idAluno"), rs.getString("nomeAluno"), rs.getString("cpfAluno")};
-                dtm.addRow(dados);
-            }
-            tabelaAluno.setModel(dtm);
-        } catch (SQLException e) {
-            System.out.println("Erro no SELECT: " + e);
+        Aluno aluno = new Aluno();
+        AlunoDAO alunoDAO = new AlunoDAO();
+        ArrayList<Object> dados = alunoDAO.consulta(aluno);
+        DefaultTableModel dtm = new DefaultTableModel(new String[]{"ID", "Nome", "CPF"}, 0);
+        int tam = dados.size();
+        int i = 0;
+        while (i < tam) {
+            String dados2[] =  {((Aluno)dados.get(i)).getCpfAluno(), ((Aluno)dados.get(i)).getNomeAluno(), ((Aluno)dados.get(i)).getIdAluno()};
+            dtm.addRow(dados2);
+            i++;
         }
+        tabelaAluno.setModel(dtm);
     }
 
     void deleteAluno() {
@@ -52,7 +50,7 @@ public class JFrameAluno extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Selecione uma linha", "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
             Aluno aluno = new Aluno();
-            aluno.setNomeAluno(tabelaAluno.getModel().getValueAt(tabelaAluno.getSelectedRow(), 0).toString());
+            aluno.setIdAluno(tabelaAluno.getModel().getValueAt(tabelaAluno.getSelectedRow(), 0).toString());
             AlunoDAO alunoDAO = new AlunoDAO();
             alunoDAO.exclui(aluno);
             carregarDados();
