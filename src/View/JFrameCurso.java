@@ -6,6 +6,7 @@ import Model.Curso;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,20 +30,18 @@ public class JFrameCurso extends javax.swing.JFrame {
     }
 
     void carregarDados() {
-        try {
-            ps = Conexao.conexao().prepareStatement("SELECT * FROM curso");
-            rs = ps.executeQuery();
-
-            DefaultTableModel dtm = new DefaultTableModel(new String[]{"ID", "Nome"}, 0);
-
-            while (rs.next()) {
-                String dados[] = {rs.getString("idCurso"), rs.getString("nomeCurso")};
-                dtm.addRow(dados);
-            }
-            tabelaCurso.setModel(dtm);
-        } catch (SQLException e) {
-            System.out.println("Erro no SELECT: " + e);
+        Curso curso = new Curso();
+        CursoDAO cursoDAO = new CursoDAO();
+        ArrayList<Object> dados = cursoDAO.consulta(curso);
+        DefaultTableModel dtm = new DefaultTableModel(new String[]{"ID", "Nome"}, 0);
+        int tam = dados.size();
+        int i = 0;
+        while (i < tam) {
+            String dados2[] = {((Curso) dados.get(i)).getNomeCurso(), ((Curso) dados.get(i)).getIdCurso()};
+            dtm.addRow(dados2);
+            i++;
         }
+        tabelaCurso.setModel(dtm);
     }
 
     void deleteCurso() {

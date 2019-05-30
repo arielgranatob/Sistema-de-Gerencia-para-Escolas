@@ -68,7 +68,7 @@ public class CursoDAO implements InterfaceDAO {
     }
 
     @Override
-    public ArrayList<Object> consulta(Object obj) {
+ public ArrayList<Object> consulta(Object obj) {
         try {
             sql = "SELECT * FROM curso";
             conn = Conexao.conexao();

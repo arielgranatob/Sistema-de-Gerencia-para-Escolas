@@ -10,6 +10,15 @@ public class Curso {
         this.idCurso = idCurso;
     }
 
+    public Curso() {
+        this.nomeCurso = nomeCurso;
+        this.idCurso = idCurso;
+    }
+
+    public Curso(String string, String string0, String string1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     /**
      * @return the idCurso
      */
